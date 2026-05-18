@@ -1,0 +1,77 @@
+set Units 0
+set NotAwable 0
+jump 5 equal Arch null
+sensor Check Arch @dead
+jump 36 notEqual Check 0
+ubind @zenith
+jump 9 equal @unit 0
+sensor Check switch1 @enabled
+jump 18 notEqual Check 0
+print " [orange]Zenith[] keeper\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\nStatus: [#ff] disabled"
+control enabled switch1 0 0 0 0
+set Core null
+set Arch null
+printflush message1
+sensor Check @unit @controller
+jump 0 notEqual Check @this
+ucontrol unbind 0 0 0 0 by_pivozavr
+end
+set Arch @unit
+ubind @zenith
+op add Units Units 1
+sensor Check @unit @controller
+jump 25 equal Check 0
+jump 25 equal Check @this
+op add NotAwable NotAwable 1
+jump 28 equal @unit Arch
+sensor Check Arch @dead
+jump 19 strictEqual Check 0
+set n 0
+op mul Check Units 2.5
+op div Check Check 6.283
+op mul R Check 1.5
+select R greaterThanEq R 5 R 5
+select R lessThanEq R 25 R 25
+sensor Check switch1 @enabled
+jump 9 equal Check 0
+print " [orange]Zenith[] keeper\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\nStatus: [#00ff] enabled\n[white]Total: [orange]{0} []/[orange] {1}\n[]Free: [orange]{2} []/[orange] {3}"
+format Units
+sensor Check Core @maxUnits
+format Check
+op sub Check Units NotAwable
+format Check
+format Units
+printflush message1
+op div Check 360 Units
+op mul Check Check n
+op sin Sin Check 0
+op cos Cos Check 0
+jump 52 notEqual n 0
+jump 53 notEqual Core null
+ulocate building core 0 @copper CoreX CoreY 0 Core
+jump 53 always 0 false
+ubind @zenith
+sensor Check @unit @flag
+jump 58 equal Check 0
+sensor Check @unit @controlled
+jump 75 notEqual Check 0
+ucontrol flag 0 0 0 0 0
+sensor Check @unit @health
+jump 63 equal Check 70
+ulocate building repair 0 @copper Xpos Ypos Check 0
+jump 63 equal Check 0
+ucontrol move Xpos Ypos 0 0 0
+sensor Check @unit @firstItem
+jump 66 equal Check null
+ucontrol itemDrop @air 99999 0 0 0
+op mul Check R Cos
+op add Xpos Check CoreX
+jump 70 greaterThanEq Xpos 0
+op mul Xpos Xpos -1
+op mul Check R Sin
+op add Ypos Check CoreY
+jump 74 greaterThanEq Ypos 0
+op mul Ypos Ypos -1
+ucontrol move Xpos Ypos 0 0 0
+op add n n 1
+jump 34 lessThan n Units
