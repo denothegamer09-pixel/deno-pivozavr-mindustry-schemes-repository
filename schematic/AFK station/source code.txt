@@ -1,0 +1,32 @@
+printflush message1
+print "[green]AFK [forest]station\n[white]By: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
+jump 5 equal sorter1 null
+jump 5 equal router1 null
+jump 8 notEqual message1 null
+print "\n\n[red]The station is damaged! Restore it according to the scheme below:[white]\n\n"
+control config sorter1 @pyratite 0 by_pivozavr 0
+end
+sensor Enabled router1 @controlled
+jump 16 equal Enabled 2
+print "\n\n[#99999999]The station is not in use.\nSit in  to run it."
+control config sorter1 @beryllium 0 0 0
+set Min 0
+set Sec 0
+set TimeSave null
+end
+control config sorter1 @blast-compound 0 0 0
+select TimeSave notEqual TimeSave null TimeSave @time
+op sub TimeInAFK @time TimeSave
+op idiv TimeInAFK TimeInAFK 1000
+op idiv Min TimeInAFK 60
+op mul Const Min 60
+op sub Sec TimeInAFK Const
+print "[#99999999]\n\nThe station is already in use:\n"
+jump 26 greaterThanEq Min 10
+print "0"
+print Min
+jump 30 greaterThanEq Sec 10
+print ":0"
+jump 31 always 0 0
+print ":"
+print Sec
