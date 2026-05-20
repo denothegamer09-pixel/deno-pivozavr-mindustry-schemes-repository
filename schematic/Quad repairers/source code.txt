@@ -57,7 +57,7 @@ sensor Check @unit @controlled
 jump 81 notEqual Check 0
 ucontrol flag 0 0 0 0 0
 sensor Check @unit @health
-jump 64 equal Check 70
+jump 64 equal Check 6000
 ulocate building repair 0 @copper Xpos Ypos Check 0
 jump 64 equal Check 0
 ucontrol move Xpos Ypos 0 0 0
