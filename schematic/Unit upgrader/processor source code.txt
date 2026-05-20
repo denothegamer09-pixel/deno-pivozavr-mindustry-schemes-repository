@@ -1,0 +1,42 @@
+printflush message1
+print "[forest]Unit upgrader[]\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
+jump 7 notEqual reconstructor1 null
+print "\n\n[red]Reconstructor\nhasn't linked![]"
+ucontrol flag 0 0 0 0 by_pivozavr
+ucontrol unbind 0 0 0 0 0
+end
+sensor Check sorter1 @config
+print "\nSelect unit:\n - ,,,\n - ,,\n - ,,,\n - ,,,"
+jump 13 equal Check @copper
+jump 13 equal Check @coal
+jump 13 equal Check @plastanium
+jump 0 notEqual Check @pyratite
+set ItemSelected Check
+sensor UnitID1 Check @id
+op add UnitID1 UnitID1 4
+sensor UnitID2 reconstructor1 @size
+op idiv UnitID2 UnitID2 2
+op add UnitID1 UnitID1 UnitID2
+lookup unit Unit UnitID1
+jump 0 equal reconstructor1 null
+jump 0 equal UnitID1 10
+ubind Unit
+sensor Check @unit @flag
+jump 27 equal Check 0
+sensor Check @unit @controlled
+jump 0 notEqual Check 0
+op rand Check 99999 0
+ucontrol flag Check 0 0 0 0
+ucontrol boost 1 0 0 0 0
+sensor Check sorter1 @config
+jump 4 notEqual Check ItemSelected
+jump 3 equal reconstructor1 null
+sensor Xpos reconstructor1 @x
+sensor Ypos reconstructor1 @y
+ucontrol pathfind Xpos Ypos 3 0 0
+ucontrol within Xpos Ypos 3 Check 0
+jump 39 equal Check 0
+ucontrol payEnter 0 0 0 0 0
+ucontrol pathfind Xpos Ypos 3 0 0
+sensor Check @unit @dead
+jump 29 equal Check 0

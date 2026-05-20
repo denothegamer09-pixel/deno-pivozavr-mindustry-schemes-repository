@@ -1,0 +1,109 @@
+printflush message1
+print " [green]Better [forest]poly AI[white] \nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\n"
+ubind @poly
+sensor Check sorter1 @flag
+jump 8 equal Check 0
+sensor Check sorter1 @controlled
+jump 0 notEqual Check 0
+ucontrol flag 0 0 0 0 0
+sensor Check sorter1 @config
+jump 15 equal Check null
+jump 22 equal Check @copper
+jump 75 equal Check @lead
+jump 82 equal Check @plastanium
+jump 89 equal Check @blast-compound
+jump 96 equal Check @surge-alloy
+print "\n[red]Mode not selected![white]\n - just mining;\n - just repearing;\n - just healing;\n - stop unit;\n - ultimate;\n - turn off."
+sensor Check @unit @controlled
+jump 0 equal Check 0
+sensor Check @unit @controller
+jump 0 notEqual Check @this
+ucontrol unbind 0 0 0 0 by_pivozavr
+end
+print "[gold]Mode: [tan]just mining."
+ulocate building core 0 @copper CoreX CoreY 0 Core
+sensor CoreCap Core @itemCapacity
+sensor Copper Core @copper
+ulocate ore core true @copper 0 0 Check 0
+jump 29 notEqual Check 0
+set Copper CoreCap
+sensor Lead Core @lead
+ulocate ore core true @lead 0 0 Check 0
+jump 33 notEqual Check 0
+set Lead CoreCap
+sensor Sand Core @sand
+ulocate ore core true @sand 0 0 Check 0
+jump 37 notEqual Check 0
+set Sand CoreCap
+sensor Coal Core @coal
+ulocate ore core true @coal 0 0 Check 0
+jump 41 notEqual Check 0
+set Coal CoreCap
+sensor Scrap Core @scrap
+ulocate ore core true @scrap 0 0 Check 0
+jump 45 notEqual Check 0
+set Scrap CoreCap
+set Check Copper
+set Item @copper
+jump 50 lessThan Check Lead
+set Check Lead
+set Item @lead
+jump 53 lessThan Check Sand
+set Check Sand
+set Item @sand
+jump 56 lessThan Check Coal
+set Check Coal
+set Item @coal
+jump 59 lessThan Check Scrap
+set Check Scrap
+set Item @scrap
+jump 63 lessThan Check CoreCap
+ucontrol approach CoreX CoreY 15 0 0
+ucontrol itemDrop @air 999 0 0 0
+end
+ulocate ore core true Item X Y 0 0
+sensor Check @unit @firstItem
+jump 70 equal Check Item
+jump 70 equal Check null
+ucontrol pathfind CoreX CoreY 0 0 0
+ucontrol itemDrop Core 999 0 0 0
+end
+ucontrol pathfind X Y 0 0 0
+ucontrol mine X Y 0 0 0
+sensor Check @unit @totalItems
+jump 67 equal Check 30
+end
+print "[gold]Mode: [acid]just repearing."
+ulocate damaged core true @copper X Y Check 0
+jump 20 equal Check 0
+ucontrol pathfind X Y 0 0 0
+ucontrol within X Y 5 Check 0
+ucontrol target X Y Check 0 0
+end
+print "[gold]Mode: [lime]just healing."
+ulocate building repair 0 @copper X Y Check 0
+jump 20 equal Check 0
+sensor Check @unit @health
+jump 20 equal Check 400
+ucontrol pathfind X Y 0 0 0
+end
+print "[gold]Mode: [red]stop units."
+sensor Check @unit @mining
+jump 93 equal Check 0
+ucontrol stop 0 0 0 0 0
+ucontrol approach @thisx @thisy 5 0 0
+ucontrol itemDrop @air 999 0 0 0
+end
+print "[gold]Mode: [goldenrod]ultimate."
+ulocate damaged core 0 @copper X Y Check 0
+jump 102 equal Check 0
+ucontrol pathfind X Y 0 0 0
+ucontrol target X Y 1 0 0
+end
+ucontrol target X Y 0 0 0
+sensor Check @unit @health
+jump 23 equal Check 400
+ulocate building repair 0 @copper X Y Check 0
+jump 23 equal Check 0
+ucontrol pathfind X Y 0 0 0
+jump 23 always Check 0
