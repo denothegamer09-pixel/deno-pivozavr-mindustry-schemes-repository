@@ -1,0 +1,79 @@
+set YourUnit null
+printflush message1
+print "Simple [coral]projector[white]\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
+jump 7 equal arch null
+sensor dead arch @dead
+jump 58 strictEqual dead 0
+set arch null
+jump 17 equal YourUnit null
+ubind YourUnit
+jump 17 equal @unit null
+set tag @unit
+ubind YourUnit
+sensor uflag @unit @flag
+jump 55 equal uflag 0
+jump 11 notEqual @unit tag
+sensor dead tag @dead
+jump 11 strictEqual dead 0
+ubind @flare
+jump 26 equal @unit null
+set tag @unit
+ubind @flare
+sensor uflag @unit @flag
+jump 55 equal uflag 0
+jump 20 notEqual @unit tag
+sensor dead tag @dead
+jump 20 strictEqual dead 0
+ubind @poly
+jump 35 equal @unit null
+set tag @unit
+ubind @poly
+sensor uflag @unit @flag
+jump 55 equal uflag 0
+jump 29 notEqual @unit tag
+sensor dead tag @dead
+jump 29 strictEqual dead 0
+ubind @mono
+jump 44 equal @unit null
+set tag @unit
+ubind @mono
+sensor uflag @unit @flag
+jump 55 equal uflag 0
+jump 38 notEqual @unit tag
+sensor dead tag @dead
+jump 38 strictEqual dead 0
+ubind @mega
+jump 53 equal @unit null
+set tag @unit
+ubind @mega
+sensor uflag @unit @flag
+jump 55 equal uflag 0
+jump 47 notEqual @unit tag
+sensor dead tag @dead
+jump 47 strictEqual dead 0
+print "\nNo free units found!"
+end
+set arch @unit
+op rand uflag 9999999999999999 [gold]ByPivozavr
+op floor uflag uflag [gold]ByPivozavr
+ucontrol flag uflag 0 0 0 0
+ucontrol boost 1 0 0 0 0
+ulocate building core 0 @copper x y 0 core
+sensor item @unit @firstItem
+jump 67 equal item null
+jump 75 equal item @phase-fabric
+ucontrol pathfind x y 0 0 0
+ucontrol itemDrop core 999 0 0 0
+end
+ucontrol pathfind x y 0 0 0
+sensor phase core @phase-fabric
+jump 73 greaterThanEq phase 500
+print "\nNot enough !\n[#afafafaf]({0}/500)"
+format phase
+end
+ucontrol itemTake core @phase-fabric 999 0 0
+end
+sensor x projector1 @x
+sensor y projector1 @y
+ucontrol pathfind x y 0 0 0
+ucontrol itemDrop projector1 999 0 0 0
