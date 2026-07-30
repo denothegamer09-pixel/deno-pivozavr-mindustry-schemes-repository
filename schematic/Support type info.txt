@@ -1,0 +1,6 @@
+STANDARD
+The scheme regularly receives major updates and fixes.
+EXTENDED
+The scheme rarely receives major updates and fixes.
+ENDED
+The scheme no longer receives updates. Its development is completed.
