@@ -1,0 +1,46 @@
+jump 0 equal @links 0
+printflush message1
+print "[tan]Target []unit miner\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
+sensor used-unit sorter1 @config
+sensor UID used-unit @id
+jump 8 lessThan UID 2
+jump 19 greaterThanEq UID 5
+op add UID UID 12
+op add UID UID 6
+lookup unit unit UID
+ubind unit
+jump 19 equal used-unit null
+print "\nSelected unit: [green]{0}[]."
+format unit
+sensor flag-check @unit @flag
+jump 27 equal flag-check 0
+sensor ctrl-check @unit @controlled
+jump 27 equal ctrl-check 0
+end
+print "\n\n[red]Unit not selected!\n[#afafafaf] - ;\n - ;\n - ;\n - ;\n - ."
+sensor ctrl-check @unit @controller
+jump 26 notEqual ctrl-check @this
+sensor mining-check @unit @mining
+jump 25 equal mining-check false
+ucontrol stop 0 0 0 0 [gold]ByPivozavr
+ucontrol unbind 0 0 0 0 0
+end
+ucontrol boost 1 0 0 0 0
+sensor item-cap @unit @itemCapacity
+sensor total-items @unit @totalItems
+jump 40 greaterThanEq total-items item-cap
+sensor click arc1 @shooting
+jump 35 equal click 0
+sensor ore-x arc1 @shootX
+sensor ore-y arc1 @shootY
+select ore-x equal ore-x 0 @thisx ore-x
+select ore-y equal ore-y 0 @thisy ore-y
+ucontrol approach ore-x ore-y 3 0 0
+ucontrol mine ore-x ore-y 0 0 0
+end
+ulocate building core 0 @copper core-x core-y 0 core
+sensor mining-check @unit @mining
+jump 44 equal mining-check 0
+ucontrol stop 0 0 0 0 0
+ucontrol pathfind core-x core-y 0 0 0
+ucontrol itemDrop core 999 0 0 0
