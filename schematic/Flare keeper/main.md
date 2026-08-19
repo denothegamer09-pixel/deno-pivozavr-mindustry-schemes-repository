@@ -104,8 +104,11 @@ op add i i 1
 jump 56 lessThan i num
 ```
 Links to GitHub pages:
+
 [Scheme (copy+paste)](https://github.com/denothegamer09-pixel/deno-pivozavr-mindustry-schemes-repository/blob/main/schematic/Flare%20keeper/scheme%20source%20code.txt "Copy the contents of the file to the clipboard and click Import, paste from clipboard in the schematic menu")
+
 [Scheme file](https://github.com/denothegamer09-pixel/deno-pivozavr-mindustry-schemes-repository/blob/main/schematic/Flare%20keeper/Flare%20keeper.msch "Import this .msav file in schematic folder")
+
 Scheme ver.: 1.4
 Support: [extended](https://github.com/denothegamer09-pixel/deno-pivozavr-mindustry-schemes-repository/blob/main/schematic/Support%20type%20info.txt)
 Min. game ver.: build 157.1 (V8)
