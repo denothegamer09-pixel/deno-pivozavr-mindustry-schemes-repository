@@ -1,43 +1,44 @@
-set num 0
-set used 0
-select time-plased equal time-plased null @second time-plased
+set x-center 0
+set y-center 0
 printflush message1
 ubind @flare
 sensor enabled switch1 @enabled
-jump 16 equal enabled 1
-jump 9 equal enabled 0
-control enabled switch1 0 0 0 0
+select enabled equal switch1 null 1 enabled
+jump 14 equal enabled 1
 print "      [orange]Flare[] keeper\nBy [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\nStatus: [#f] disabled"
 set time-plased null
 set core null
 sensor ctrler @unit @controller
-jump 15 notEqual ctrler @this
+jump 0 notEqual ctrler @this
 ucontrol unbind 0 0 0 0 [gold]ByPivozavr
 end
-jump 19 notEqual @unit null
+set num 0
+set used 0
+select time-plased equal time-plased null @second time-plased
+jump 20 notEqual @unit null
 print "      [orange]Flare[] keeper\nBy [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\nStatus: [#ffff] paused\n[#afafafaf]Flares not found!"
 end
 set arch @unit
 ubind @flare
-sensor ctrl @unit @controlled
-jump 32 equal ctrl 0
-sensor ctrler @unit @controller
-jump 32 equal ctrler @this
-jump 32 equal ctrler @flare
-read ctrl-check ctrler "time-plased"
-jump 31 equal ctrl-check null
-jump 31 greaterThan ctrl-check time-plased
+sensor ctrld-check @unit @controlled
+jump 33 equal ctrld-check 0
+sensor ctrler-check @unit @controller
+jump 33 equal ctrler-check @this
+jump 33 equal ctrler-check @unit
+read ctrl-check ctrler-check "time-plased"
+jump 32 equal ctrl-check null
+jump 32 greaterThan ctrl-check time-plased
 print "      [orange]Flare[] keeper\nBy [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]\nStatus: [#ffff] paused\n[#afafafaf]Another keeper\nalready working!"
 end
 op add used used 1
 op add num num 1
-jump 36 equal @unit arch
-sensor dead arch @dead
-jump 20 strictEqual dead 0
+jump 37 equal @unit arch
+sensor dead-check arch @dead
+jump 21 strictEqual dead-check 0
 op sub free num used
-jump 40 equal core null
-sensor dead core @dead
-jump 41 strictEqual dead 0
+jump 41 equal core null
+sensor dead-check core @dead
+jump 42 strictEqual dead-check 0
 ulocate building core 0 @copper cx cy 0 core
 sensor max core @maxUnits
 select max equal max null "-" max
@@ -46,6 +47,13 @@ format num
 format max
 format free
 format num
+jump 56 equal x-center null
+jump 56 equal y-center null
+print "\n[#afafafaf]Custom center\npos: {0}, {1}."
+format x-center
+format y-center
+set cx x-center
+set cy y-center
 set i 0
 op mul r num 1.125
 op div r r 6.283
@@ -53,27 +61,30 @@ op mul r r 1.5
 select r greaterThanEq r 7 r 7
 select r lessThanEq r 26.85 r 26.85
 op div angle 360 num
-jump 57 equal @unit arch
+jump 65 equal @unit arch
 ubind @flare
-sensor flag @unit @flag
-jump 62 equal flag 0
-sensor ctrl @unit @controlled
-jump 88 notEqual ctrl 0
+sensor flag-check @unit @flag
+jump 70 equal flag-check 0
+sensor ctrl-check @unit @controlled
+jump 99 notEqual ctrl-check 0
 ucontrol flag 0 0 0 0 0
 sensor fitem @unit @firstItem
-jump 70 equal fitem null
-ucontrol pathfind cx cy 0 0 0
-sensor corecap core @itemCapacity
-sensor itemcap core fitem
-select pos lessThan itemcap corecap core @air
-ucontrol itemDrop pos 999 0 0 0
-jump 88 always 0 0
+jump 81 equal fitem null
+ulocate building core 0 @copper core-x core-y 0 drop-core
+sensor core-cap drop-core @itemCapacity
+sensor itemcap drop-core fitem
+jump 79 greaterThanEq itemcap core-cap
+ucontrol pathfind core-x core-y 0 0 0
+ucontrol itemDrop drop-core 999 0 0 0
+jump 99 always 0 0
+ucontrol itemDrop @air 999 0 0 0
+jump 99 always 0 0
 sensor hp @unit @health
-jump 76 equal hp 70
+jump 87 equal hp 70
 ulocate building repair 0 @copper rx ry found 0
-jump 76 equal found 0
+jump 87 equal found 0
 ucontrol pathfind rx ry 0 0 0
-jump 88 always 0 0
+jump 99 always 0 0
 op mul unitangle angle i
 op sin sin unitangle 0
 op cos cos unitangle 0
@@ -87,4 +98,4 @@ select y greaterThanEq y 0 y 0
 select y lessThanEq y @maph y @maph
 ucontrol move x y 0 0 0
 op add i i 1
-jump 56 lessThan i num
+jump 64 lessThan i num
