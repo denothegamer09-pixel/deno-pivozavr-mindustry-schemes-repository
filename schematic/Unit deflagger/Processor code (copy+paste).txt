@@ -1,0 +1,30 @@
+printflush message1
+print "[#00af]Unit deflagger[]\nBy [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
+set text null
+set UID 0
+lookup unit unit UID
+ubind unit
+jump 28 equal @unit null
+set tag @unit
+ubind unit
+sensor flag @unit @flag
+jump 17 equal flag 0
+sensor ctrl @unit @controlled
+jump 17 equal ctrl 1
+ucontrol flag 0 0 0 0 [gold]ByPivozavr
+read total cell1 UID
+op add total total 1
+write total cell1 UID
+jump 20 equal @unit tag
+sensor dead tag @dead
+jump 8 strictEqual dead 0
+jump 23 notEqual text null
+print "\n[#00af]Deflagged[]:"
+set text 787898
+read count cell1 UID
+jump 28 equal count 0
+print "\n{0} [green]{1}[];"
+format count
+format unit
+op add UID UID 1
+jump 4 lessThan UID @unitCount
