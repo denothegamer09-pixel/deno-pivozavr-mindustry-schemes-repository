@@ -1,0 +1,100 @@
+set x-center 0
+set y-center 0
+printflush message1
+ubind @zenith
+sensor enabled switch1 @enabled
+jump 13 equal enabled 1
+print "[orange]Zenith[] keeper\nBy [purple]Deno\n[#ff0000af]Turned off"
+set time-plased null
+set core null
+sensor ctrl-check @unit @controller
+jump 0 notEqual ctrl-check @this
+ucontrol unbind 0 0 0 0 0
+end
+set unit-count 0
+set units-in-use 0
+select time-plased equal time-plased null @second time-plased
+jump 19 notEqual @unit null
+print "[orange]Zenith[] keeper\nBy [purple]Deno\n[#ffff00af]Zeniths not found!"
+end
+set arch-unit @unit
+ubind @zenith
+sensor ctrld-check @unit @controlled
+jump 32 equal ctrld-check 0
+sensor ctrler-check @unit @controller
+jump 32 equal ctrler-check @this
+jump 32 equal ctrler-check @unit
+read ctrl-check ctrler-check "time-plased"
+jump 31 equal ctrl-check null
+jump 31 greaterThan ctrl-check time-plased
+print "[orange]Zenith[] keeper\nBy [purple]Deno\n[#ffff00af]Another keeper\nalready working!"
+end
+op add units-in-use units-in-use 1
+op add unit-count unit-count 1
+jump 36 equal @unit arch-unit
+sensor dead-check arch-unit @dead
+jump 20 strictEqual dead-check 0
+op sub free-units unit-count units-in-use
+jump 40 equal core null
+sensor dead-check core @dead
+jump 41 strictEqual dead-check 0
+ulocate building core 0 @copper center-x center-y 0 core
+sensor max-units core @maxUnits
+select max-units equal max-units null "-" max-units
+print "[orange]Zenith[] keeper\nBy [purple]Deno\n[white]Total: [orange]{0} []/[orange] {1}\n[]Free: [orange]{2} []/[orange] {3}"
+format unit-count
+format max-units
+format free-units
+format unit-count
+jump 55 equal x-center null
+jump 55 equal y-center null
+print "\n[#afafafaf]Custom center\npos: {0}, {1}."
+format x-center
+format y-center
+set center-x x-center
+set center-y y-center
+set i 0
+op mul rad unit-count 2.5
+op div rad rad 6.283
+op mul rad rad 1.5
+select rad greaterThanEq rad 7 rad 7
+select rad lessThanEq rad 35 rad 35
+op div angle 360 unit-count
+jump 64 equal @unit arch-unit
+ubind @zenith
+sensor flag-check @unit @flag
+jump 69 equal flag-check 0
+sensor ctrl-check @unit @controlled
+jump 98 notEqual ctrl-check 0
+ucontrol flag 0 0 0 0 0
+sensor first-item @unit @firstItem
+jump 80 equal first-item null
+ulocate building core 0 @copper core-x core-y 0 drop-core
+sensor core-cap drop-core @itemCapacity
+sensor item-cap drop-core first-item
+jump 78 greaterThanEq item-cap core-cap
+ucontrol pathfind core-x core-y 0 0 0
+ucontrol itemDrop drop-core 999 0 0 0
+jump 98 always 0 0
+ucontrol itemDrop @air 999 0 0 0
+jump 98 always 0 0
+sensor health-check @unit @health
+jump 86 equal health-check 700
+ulocate building repair 0 @copper repair-x repair-y repair-found 0
+jump 86 equal repair-found 0
+ucontrol pathfind repair-x repair-y 0 0 0
+jump 98 always 0 0
+op mul unit-angle angle i
+op sin sin unit-angle 0
+op cos cos unit-angle 0
+op mul x-pos rad cos
+op add x-pos x-pos center-x
+select x-pos greaterThanEq x-pos 0 x-pos 0
+select x-pos lessThanEq x-pos @mapw x-pos @mapw
+op mul y-pos rad sin
+op add y-pos y-pos center-y
+select y-pos greaterThanEq y-pos 0 y-pos 0
+select y-pos lessThanEq y-pos @maph y-pos @maph
+ucontrol move x-pos y-pos [purple]ByDeno 0 0
+op add i i 1
+jump 63 lessThan i unit-count
