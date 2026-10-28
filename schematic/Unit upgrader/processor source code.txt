@@ -1,42 +1,239 @@
+print "[#afafafaf]\nVer.: 1.3"
 printflush message1
-print "[forest]Unit upgrader[]\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
-jump 7 notEqual reconstructor1 null
-print "\n\n[red]Reconstructor\nhasn't linked![]"
-ucontrol flag 0 0 0 0 by_pivozavr
-ucontrol unbind 0 0 0 0 0
+print "[forest]Unit upgrader[]\nBy [purple]Deno[]"
+jump 10 notEqual reconstructor1 null
+ubind unit-upgrade
+ucontrol approach @thisx @thisy 5 0 0
+ubind unit-delivery
+ucontrol approach @thisx @thisy 5 0 0
+print "[red]\nReconstructor\nhasn't linked!"
 end
-sensor Check sorter1 @config
-print "\nSelect unit:\n - ,,,\n - ,,\n - ,,,\n - ,,,"
-jump 13 equal Check @copper
-jump 13 equal Check @coal
-jump 13 equal Check @plastanium
-jump 0 notEqual Check @pyratite
-set ItemSelected Check
-sensor UnitID1 Check @id
-op add UnitID1 UnitID1 4
-sensor UnitID2 reconstructor1 @size
-op idiv UnitID2 UnitID2 2
-op add UnitID1 UnitID1 UnitID2
-lookup unit Unit UnitID1
-jump 0 equal reconstructor1 null
-jump 0 equal UnitID1 10
-ubind Unit
-sensor Check @unit @flag
-jump 27 equal Check 0
-sensor Check @unit @controlled
-jump 0 notEqual Check 0
-op rand Check 99999 0
-ucontrol flag Check 0 0 0 0
+sensor selected-unit sorter1 @config
+sensor crawler-mode sorter1 @type
+sensor reconstructor-type reconstructor1 @type
+jump 115 equal reconstructor-type @tetrative-reconstructor
+jump 82 equal reconstructor-type @exponential-reconstructor
+jump 49 equal reconstructor-type @multiplicative-reconstructor
+jump 0 notEqual reconstructor-type @additive-reconstructor
+print "\nSelect a unit:\n -  (need )\n - \n -  (need )\n - \n - \n -  (need )\n -  (need )"
+jump 22 notEqual selected-unit saved-unit
+jump 31 notEqual saved-mode crawler-mode
+jump 147 notEqual saved-unit null
+end
+ubind unit-upgrade
+set unit-upgrade null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+ubind unit-delivery
+set unit-delivery null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+jump 0 equal selected-unit null
+set saved-unit selected-unit
+set saved-mode crawler-mode
+select upgrade equal selected-unit @copper @dagger null
+select delivery equal selected-unit @copper @mega null
+select upgrade equal selected-unit @lead @nova upgrade
+select delivery equal selected-unit @lead null delivery
+select upgrade equal selected-unit @metaglass @crawler upgrade
+select delivery equal selected-unit @metaglass @mega delivery
+select upgrade equal selected-unit @graphite @flare upgrade
+select delivery equal selected-unit @graphite null delivery
+select upgrade equal selected-unit @sand @mono upgrade
+select delivery equal selected-unit @sand null delivery
+select upgrade equal selected-unit @coal @risso upgrade
+select delivery equal selected-unit @coal delivery-unit delivery
+select upgrade equal selected-unit @titanium @retusa upgrade
+select delivery equal selected-unit @titanium delivery-unit delivery
+jump 147 notEqual upgrade null
+end
+print "\nSelect a unit:\n -  (need )\n - \n -  (need )\n - \n - \n -  (need )\n -  (need )\n[#afafafaf]Use  for enable\ndelivery for crawler\ntree.[]"
+jump 54 notEqual selected-unit saved-unit
+jump 63 notEqual saved-mode crawler-mode
+jump 147 notEqual saved-unit null
+end
+ubind unit-upgrade
+set unit-upgrade null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+ubind unit-delivery
+set unit-delivery null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+jump 0 equal selected-unit null
+set saved-unit selected-unit
+set saved-mode crawler-mode
+select upgrade equal selected-unit @copper @mace null
+select delivery equal selected-unit @copper @mega null
+select upgrade equal selected-unit @lead @pulsar upgrade
+select delivery equal selected-unit @lead null delivery
+select upgrade equal selected-unit @metaglass @atrax upgrade
+select crawler-delivery equal crawler-mode @inverted-sorter @mega null
+select delivery equal selected-unit @metaglass crawler-delivery delivery
+select upgrade equal selected-unit @graphite @horizon upgrade
+select delivery equal selected-unit @graphite null delivery
+select upgrade equal selected-unit @sand @poly upgrade
+select delivery equal selected-unit @sand null delivery
+select upgrade equal selected-unit @coal @minke upgrade
+select delivery equal selected-unit @coal delivery-unit delivery
+select upgrade equal selected-unit @titanium @oxynoe upgrade
+select delivery equal selected-unit @titanium delivery-unit delivery
+jump 147 notEqual upgrade null
+end
+print "\nSelect a unit:\n -  (need )\n - \n -  (need )\n - \n - \n -  (need )\n -  (need )\n[#afafafaf]Use  for enable\ndelivery for crawler\ntree.[]"
+jump 87 notEqual selected-unit saved-unit
+jump 96 notEqual saved-mode crawler-mode
+jump 147 notEqual saved-unit null
+end
+ubind unit-upgrade
+set unit-upgrade null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+ubind unit-delivery
+set unit-delivery null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+jump 0 equal selected-unit null
+set saved-unit selected-unit
+set saved-mode crawler-mode
+select upgrade equal selected-unit @copper @fortress null
+select delivery equal selected-unit @copper @quad null
+select upgrade equal selected-unit @lead @quasar upgrade
+select delivery equal selected-unit @lead null delivery
+select upgrade equal selected-unit @metaglass @spiroct upgrade
+select crawler-delivery equal crawler-mode @inverted-sorter @quad null
+select delivery equal selected-unit @metaglass crawler-delivery delivery
+select upgrade equal selected-unit @graphite @zenith upgrade
+select delivery equal selected-unit @graphite null delivery
+select upgrade equal selected-unit @sand @mega upgrade
+select delivery equal selected-unit @sand null delivery
+select upgrade equal selected-unit @coal @bryde upgrade
+select delivery equal selected-unit @coal delivery-unit delivery
+select upgrade equal selected-unit @titanium @cyerce upgrade
+select delivery equal selected-unit @titanium delivery-unit delivery
+jump 147 notEqual upgrade null
+end
+print "\nSelect a unit:\n -  (need )\n - \n -  (need )\n - \n - \n -  (need )\n -  (need )\n[#afafafaf]Use  for enable\ndelivery for crawler\ntree.[]"
+jump 120 notEqual selected-unit saved-unit
+jump 129 notEqual crawler-mode saved-mode
+jump 147 notEqual saved-unit null
+end
+ubind unit-upgrade
+set unit-upgrade null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+ubind unit-delivery
+set unit-delivery null
+ucontrol flag 0 0 0 0 0
+ucontrol unbind 0 0 0 0 0
+jump 0 equal selected-unit null
+set saved-unit selected-unit
+set saved-mode crawler-mode
+select upgrade equal selected-unit @copper @scepter null
+select delivery equal selected-unit @copper @oct null
+select upgrade equal selected-unit @lead @vela upgrade
+select delivery equal selected-unit @lead null delivery
+select upgrade equal selected-unit @metaglass @arkyid upgrade
+select crawler-delivery equal crawler-mode @inverted-sorter @oct null
+select delivery equal selected-unit @metaglass crawler-delivery delivery
+select upgrade equal selected-unit @graphite @antumbra upgrade
+select delivery equal selected-unit @graphite null delivery
+select upgrade equal selected-unit @sand @quad upgrade
+select delivery equal selected-unit @sand null delivery
+select upgrade equal selected-unit @coal @sei upgrade
+select delivery equal selected-unit @coal delivery-unit delivery
+select upgrade equal selected-unit @titanium @aegires upgrade
+select delivery equal selected-unit @titanium delivery-unit delivery
+jump 0 equal upgrade null
+jump 149 equal delivery null
+jump 186 equal payloaded 1
+jump 152 equal unit-upgrade null
+sensor dead-check unit-upgrade @dead
+jump 174 strictEqual dead-check 0
+ubind upgrade
+jump 157 notEqual @unit null
+print "[red]\n{0} not found!"
+format upgrade
+end
+set tagged-unit @unit
+ubind upgrade
+sensor flag-check @unit @flag
+jump 170 equal flag-check 0
+sensor ctrl-check @unit @controlled
+jump 170 equal ctrl-check 0
+jump 167 notEqual @unit tagged-unit
+print "[red]\nFree {0}s not found!"
+format upgrade
+end
+sensor dead-check tagged-unit @dead
+jump 158 strictEqual dead-check 0
+jump 152 always 0 0
+op mul set-flag @thisx @maph
+op add set-flag set-flag @thisy
+ucontrol flag set-flag 0 0 0 0
+set unit-upgrade @unit
+ubind unit-upgrade
+jump 186 notEqual delivery null
+sensor block-x reconstructor1 @x
+sensor block-y reconstructor1 @y
 ucontrol boost 1 0 0 0 0
-sensor Check sorter1 @config
-jump 4 notEqual Check ItemSelected
-jump 3 equal reconstructor1 null
-sensor Xpos reconstructor1 @x
-sensor Ypos reconstructor1 @y
-ucontrol pathfind Xpos Ypos 3 0 0
-ucontrol within Xpos Ypos 3 Check 0
-jump 39 equal Check 0
+ucontrol pathfind block-x block-y 0 0 0
+ucontrol within block-x block-y 2 within-check 0
+select deliver-status equal within-check 0 "\nDeliver the unit..." " "
+print deliver-status
+jump 0 equal within-check 0
 ucontrol payEnter 0 0 0 0 0
-ucontrol pathfind Xpos Ypos 3 0 0
-sensor Check @unit @dead
-jump 29 equal Check 0
+end
+jump 189 equal unit-delivery null
+sensor dead-check unit-delivery @dead
+jump 211 strictEqual dead-check 0
+ubind delivery
+jump 194 notEqual @unit null
+print "[red]\n{0} for delivery not found!"
+format delivery
+end
+set tagged-unit @unit
+ubind delivery
+sensor flag-check @unit @flag
+jump 207 equal flag-check 0
+sensor ctrl-check @unit @controlled
+jump 207 equal ctrl-check 0
+jump 204 notEqual @unit tagged-unit
+print "[red]\nFree {0}s for delivery not found!"
+format delivery
+end
+sensor dead-check tagged-unit @dead
+jump 195 strictEqual dead-check 0
+jump 189 always 0 0
+op mul set-flag @thisx @maph
+op add set-flag set-flag @thisy
+ucontrol flag set-flag 0 0 0 0
+set unit-delivery @unit
+ubind unit-delivery
+sensor payload-type @unit @payloadType
+jump 228 equal payload-type upgrade
+set payloaded 0
+jump 217 equal payload-type null
+ucontrol payDrop 0 0 0 0 0
+sensor unit-x unit-upgrade @x
+select unit-x equal unit-x null @thisx unit-x
+sensor unit-y unit-upgrade @y
+select unit-y equal unit-y null @thisy unit-y
+ucontrol pathfind unit-x unit-y 0 0 0
+ucontrol within unit-x unit-y 1 within-check 0
+print "\nPicking up a unit..."
+jump 0 equal within-check 0
+ucontrol payTake upgrade 0 0 0 0
+set payloaded 1
+end
+sensor block-x reconstructor1 @x
+sensor block-y reconstructor1 @y
+ucontrol pathfind block-x block-y 0 0 0
+ucontrol within block-x block-y 1 within-check 0
+select deliver-status equal within-check 0 "\nDeliver the unit..." " "
+print deliver-status
+jump 0 equal within-check 0
+sensor have-unit reconstructor1 @payloadCount
+jump 0 equal have-unit 1
+ucontrol payDrop [purple]ByDeno 0 0 0 0
+set unit-upgrade 0

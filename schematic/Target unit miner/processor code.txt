@@ -1,36 +1,34 @@
-jump 0 equal @links 0
 printflush message1
-print "[tan]Target []unit miner\nBy: [#ffff][#DBA9]_Pivo[gold]zavR_[#ffff][white]"
-sensor used-unit sorter1 @config
-sensor UID used-unit @id
-jump 8 lessThan UID 2
-jump 19 greaterThanEq UID 5
-op add UID UID 12
-op add UID UID 6
-lookup unit unit UID
+print "[tan]Target []unit miner\nBy [purple]Deno"
+sensor selected-unit sorter1 @config
+select unit equal selected-unit @copper @pulsar null
+select unit equal selected-unit @lead @quasar unit
+select unit equal selected-unit @metaglass @mono unit
+select unit equal selected-unit @graphite @poly unit
+select unit equal selected-unit @sand @mega unit
+jump 17 equal unit null
 ubind unit
-jump 19 equal used-unit null
-print "\nSelected unit: [green]{0}[]."
+print "\nSelected unit: [green]{0}[].\n[#afafafaf]Ver.: 1.90"
 format unit
 sensor flag-check @unit @flag
-jump 27 equal flag-check 0
+jump 25 equal flag-check 0
 sensor ctrl-check @unit @controlled
-jump 27 equal ctrl-check 0
+jump 25 equal ctrl-check 0
 end
-print "\n\n[red]Unit not selected!\n[#afafafaf] - ;\n - ;\n - ;\n - ;\n - ."
+print "\n[red]Unit not selected!\n[#ffffffaf] - \n - \n - \n - \n - \n[#afafafaf]Ver.: 1.90"
 sensor ctrl-check @unit @controller
-jump 26 notEqual ctrl-check @this
+jump 0 notEqual ctrl-check @this
 sensor mining-check @unit @mining
-jump 25 equal mining-check false
-ucontrol stop 0 0 0 0 [gold]ByPivozavr
+jump 23 equal mining-check false
+ucontrol stop 0 0 0 0 0
 ucontrol unbind 0 0 0 0 0
 end
 ucontrol boost 1 0 0 0 0
 sensor item-cap @unit @itemCapacity
 sensor total-items @unit @totalItems
-jump 40 greaterThanEq total-items item-cap
+jump 38 greaterThanEq total-items item-cap
 sensor click arc1 @shooting
-jump 35 equal click 0
+jump 33 equal click 0
 sensor ore-x arc1 @shootX
 sensor ore-y arc1 @shootY
 select ore-x equal ore-x 0 @thisx ore-x
@@ -40,7 +38,7 @@ ucontrol mine ore-x ore-y 0 0 0
 end
 ulocate building core 0 @copper core-x core-y 0 core
 sensor mining-check @unit @mining
-jump 44 equal mining-check 0
+jump 42 equal mining-check 0
 ucontrol stop 0 0 0 0 0
 ucontrol pathfind core-x core-y 0 0 0
-ucontrol itemDrop core 999 0 0 0
+ucontrol itemDrop core 999 [purple]ByDeno 0 0
